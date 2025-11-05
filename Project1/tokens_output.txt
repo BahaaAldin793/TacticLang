@@ -1,0 +1,36 @@
+TACTICLANG SCANNER OUTPUT
+=========================
+Total Tokens: 31
+=========================
+
+Line 1, Col 0: CAMPAIGN [campaign]
+Line 1, Col 9: IDENTIFIER [missionAlpha]
+Line 1, Col 22: LBRACE [{]
+Line 2, Col 5: IDENTIFIER [troopCount]
+Line 2, Col 16: ASSIGN [=]
+Line 2, Col 18: INTEGER [100]
+Line 2, Col 21: SEMICOLON [;]
+Line 3, Col 5: IDENTIFIER [ammoSupply]
+Line 3, Col 16: ASSIGN [=]
+Line 3, Col 18: DOUBLE [250.5]
+Line 3, Col 23: SEMICOLON [;]
+Line 5, Col 5: DEPLOY [deploy]
+Line 5, Col 11: LPAREN [(]
+Line 5, Col 12: IDENTIFIER [squadA]
+Line 5, Col 18: RPAREN [)]
+Line 5, Col 19: SEMICOLON [;]
+Line 6, Col 5: DEPLOY [deploy]
+Line 6, Col 11: LPAREN [(]
+Line 6, Col 12: IDENTIFIER [squadB]
+Line 6, Col 18: RPAREN [)]
+Line 6, Col 19: SEMICOLON [;]
+Line 8, Col 5: IDENTIFIER [missionScore]
+Line 8, Col 18: ASSIGN [=]
+Line 8, Col 20: IDENTIFIER [troopCount]
+Line 8, Col 31: PLUS [+]
+Line 8, Col 33: INTEGER [50]
+Line 8, Col 36: MINUS [-]
+Line 8, Col 38: INTEGER [10]
+Line 8, Col 40: SEMICOLON [;]
+Line 9, Col 1: RBRACE [}]
+Line 10, Col 1: EOF

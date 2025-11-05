@@ -6,6 +6,8 @@
 #include <cctype>
 #include <map>
 
+
+
 using namespace std;
 
 // Token types
@@ -350,73 +352,80 @@ void writeTokensToFile(const vector<Token>& tokens, const string& outputPath) {
 
     outFile.close();
     cout << "Tokens written to: " << outputPath << endl;
+    
 }
 
+
+vector<Token> scanFile(const string& filename) {
+    string source = readFile(filename);
+    Scanner scanner(source);
+    return scanner.scanTokens();
+}
 // Main function
-int main() {
-    // File path
-    string filepath = "D:\\1\\College\\4th Year\\Compilers\\Project\\Scanner\\Project1\\soldier.tac";
-    string outputPath = "D:\\1\\College\\4th Year\\Compilers\\Project\\Scanner\\Project1\\tokens_output.txt";
+// int main() {
+//     // File path
+//     string filepath = "soldier.tac";
+//     string outputPath = "tokens_output.txt";
 
-    cout << "TacticLang Scanner" << endl;
-    cout << "==================" << endl;
-    cout << "Reading file: " << filepath << endl << endl;
+//     cout << "TacticLang Scanner" << endl;
+//     cout << "==================" << endl;
+//     cout << "Reading file: " << filepath << endl << endl;
 
-    // Read source file
-    string sourceCode = readFile(filepath);
+//     // Read source file
+//     string sourceCode = readFile(filepath);
 
-    if (sourceCode.empty()) {
-        cerr << "Error: Source file is empty or could not be read." << endl;
-        return 1;
-    }
+//     if (sourceCode.empty()) {
+//         cerr << "Error: Source file is empty or could not be read." << endl;
+//         return 1;
+//     }
 
-    cout << "File read successfully (" << sourceCode.length() << " characters)" << endl;
-    cout << "Scanning..." << endl << endl;
+//     cout << "File read successfully (" << sourceCode.length() << " characters)" << endl;
+//     cout << "Scanning..." << endl << endl;
 
-    // Create scanner and scan tokens
-    Scanner scanner(sourceCode);
-    vector<Token> tokens = scanner.scanTokens();
+//     // Create scanner and scan tokens
+//     Scanner scanner(sourceCode);
+//     vector<Token> tokens = scanner.scanTokens();
 
-    // Display tokens to console
-    cout << "Tokens Found:" << endl;
-    cout << "-------------" << endl;
+//     // Display tokens to console
+//     cout << "Tokens Found:" << endl;
+//     cout << "-------------" << endl;
 
-    int displayLimit = 50; // Display first 50 tokens in console
-    for (size_t i = 0; i < tokens.size() && i < displayLimit; i++) {
-        const Token& token = tokens[i];
-        cout << "Line " << token.line
-            << ", Col " << token.column
-            << ": " << Scanner::tokenTypeToString(token.type);
+//     int displayLimit = 50; // Display first 50 tokens in console
+//     for (size_t i = 0; i < tokens.size() && i < displayLimit; i++) {
+//         const Token& token = tokens[i];
+//         cout << "Line " << token.line
+//             << ", Col " << token.column
+//             << ": " << Scanner::tokenTypeToString(token.type);
 
-        if (!token.lexeme.empty() && token.type != TOK_EOF) {
-            cout << " [" << token.lexeme << "]";
-        }
-        cout << endl;
-    }
+//         if (!token.lexeme.empty() && token.type != TOK_EOF) {
+//             cout << " [" << token.lexeme << "]";
+//         }
+//         cout << endl;
+//     }
 
-    if (tokens.size() > displayLimit) {
-        cout << "... (showing first " << displayLimit << " tokens)" << endl;
-    }
+//     if (tokens.size() > displayLimit) {
+//         cout << "... (showing first " << displayLimit << " tokens)" << endl;
+//     }
 
-    cout << endl << "Total tokens: " << tokens.size() << endl << endl;
+//     cout << endl << "Total tokens: " << tokens.size() << endl << endl;
 
-    // Write all tokens to output file
-    writeTokensToFile(tokens, outputPath);
+//     // Write all tokens to output file
+//     writeTokensToFile(tokens, outputPath);
 
-    // Count error tokens
-    int errorCount = 0;
-    for (const Token& token : tokens) {
-        if (token.type == TOK_ERROR) {
-            errorCount++;
-        }
-    }
+//     // Count error tokens
+//     int errorCount = 0;
+//     for (const Token& token : tokens) {
+//         if (token.type == TOK_ERROR) {
+//             errorCount++;
+//         }
+//     }
 
-    if (errorCount > 0) {
-        cout << endl << "Warning: Found " << errorCount << " error token(s)" << endl;
-    }
-    else {
-        cout << endl << "Scanning completed successfully - no errors!" << endl;
-    }
+//     if (errorCount > 0) {
+//         cout << endl << "Warning: Found " << errorCount << " error token(s)" << endl;
+//     }
+//     else {
+//         cout << endl << "Scanning completed successfully - no errors!" << endl;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
