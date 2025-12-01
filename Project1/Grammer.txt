@@ -1,0 +1,65 @@
+// ----------------------------------------
+// 🏛 Final TacticLang Grammar (Production Ready)
+// ----------------------------------------
+
+Program             ->  DeclarationList EOF ;
+DeclarationList     ->  Declaration DeclarationList | ε ;
+Declaration         ->  IncludeStatement
+                    |   FunctionDefinition
+                    |   VariableDeclaration ;
+
+// --- Statements ---
+StatementList       ->  Statement StatementList | ε ;
+Statement           ->  BlockStatement
+                    |   VariableDeclaration
+                    |   IfStatement
+                    |   ForStatement
+                    |   WhileStatement
+                    |   OutputStatement
+                    |   InputStatement
+                    |   ReturnStatement
+                    |   BreakStatement
+                    |   AssignmentStatement
+                    |   ExpressionStatement ;
+
+// --- Core Definitions ---
+BlockStatement      ->  LBRACE StatementList RBRACE ;
+IncludeStatement    ->  SUPPLY IDENTIFIER ;
+VariableDeclaration ->  Type IDENTIFIER (ASSIGN Expr)? SEMICOLON ;
+Type                ->  TROOP | AMMO | CODENAME | STATUS ;
+
+FunctionDefinition  ->  TACTIC (IDENTIFIER | CAMPAIGN) LPAREN ParamList? RPAREN BlockStatement ;
+ParamList           ->  Param (COMMA Param)* ;
+Param               ->  Type IDENTIFIER ;
+
+// --- I/O and Basic Operations ---
+OutputStatement     ->  BRIEF Expr SEMICOLON ;
+InputStatement      ->  INTEL IDENTIFIER SEMICOLON ;
+ReturnStatement     ->  RETREAT Expr? SEMICOLON ;
+BreakStatement      ->  ABORT SEMICOLON ;
+AssignmentStatement ->  IDENTIFIER ASSIGN Expr SEMICOLON ;
+ExpressionStatement ->  Expr SEMICOLON ;
+
+// --- Control Flow ---
+IfStatement         ->  EVALUATE LPAREN Expr RPAREN BlockStatement ElsePart? ;
+ElsePart            ->  ADJUST IfStatement | ADJUST BlockStatement ;
+WhileStatement      ->  MAINTAIN LPAREN Expr RPAREN BlockStatement ;
+ForStatement        ->  DEPLOY LPAREN ForInit ForCond ForUpdate RPAREN BlockStatement ;
+ForInit             ->  VariableDeclaration | ExpressionStatement | SEMICOLON ;
+ForCond             ->  Expr? SEMICOLON ;
+ForUpdate           ->  Expr? ;
+
+// --- Expressions ---
+Expr                ->  LogicalOr ;
+LogicalOr           ->  LogicalAnd (OR LogicalAnd)* ;
+LogicalAnd          ->  Equality (AND Equality)* ;
+Equality            ->  Relational (EQUAL | NOT_EQUAL) Relational  ;
+Relational          ->  Additive  (LESS | GREATER | LESS_EQUAL | GREATER_EQUAL) Additive  ;
+Additive            ->  Multiplicative ( (PLUS | MINUS) Multiplicative )* ;
+Multiplicative      ->  Unary ( (MULTIPLY | DIVIDE | MODULO) Unary )* ;
+Unary               ->  (NOT | MINUS) Unary | Primary ;
+Primary             ->  INTEGER | DOUBLE | STRING | TRUE | FALSE
+                    |   IDENTIFIER
+                    |   IDENTIFIER LPAREN ArgList? RPAREN
+                    |   LPAREN Expr RPAREN ;
+ArgList             ->  Expr (COMMA Expr)* ;
